@@ -1,0 +1,101 @@
+:root {
+  /* Light theme (default) */
+  --bg-app: #ffffff;
+  --bg-sidebar: #202123;
+  --bg-sidebar-hover: #2a2b32;
+  --bg-sidebar-active: #343541;
+  --bg-user-msg: #dbeafe;
+  --bg-ai-msg: #f4f4f4;
+  --bg-input: #ffffff;
+  --bg-button-primary: #10a37f;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --text-on-sidebar: #ffffff;
+  --text-on-primary: #ffffff;
+
+  --border-color: #e5e5e5;
+  --border-input: #cccccc;
+  --border-sidebar: #555555;
+}
+
+[data-theme="dark"] {
+  --bg-app: #1a1a1a;
+  --bg-sidebar: #0f0f10;
+  --bg-sidebar-hover: #2a2b32;
+  --bg-sidebar-active: #343541;
+  --bg-user-msg: #1e3a5f;
+  --bg-ai-msg: #2a2b32;
+  --bg-input: #2a2b32;
+  --bg-button-primary: #10a37f;
+
+  --text-primary: #ececec;
+  --text-secondary: #b4b4b4;
+  --text-muted: #888888;
+  --text-on-sidebar: #ffffff;
+  --text-on-primary: #ffffff;
+
+  --border-color: #3a3a3a;
+  --border-input: #4a4a4a;
+  --border-sidebar: #444444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Smooth transitions for theme switching */
+aside,
+main,
+textarea,
+button {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+/* ===== Mobile Header (hidden by default on desktop) ===== */
+.mobile-header {
+  display: none;
+}
+
+/* ===== Mobile responsive (max 768px) ===== */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-app);
+    color: var(--text-primary);
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
+}
