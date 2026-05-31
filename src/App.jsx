@@ -92,21 +92,17 @@ function App() {
     );
 
     try {
-      const res = await fetch(
-        "https://api.groq.com/openai/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
-            messages: baseMessages,
-            stream: true,
-          }),
-        }
-      );
+      const res = await fetch("/.netlify/functions/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: baseMessages,
+          stream: true,
+        }),
+      });
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder("utf-8");
@@ -136,12 +132,12 @@ function App() {
                 prev.map((c) =>
                   c.id === currentId
                     ? {
-                        ...c,
-                        messages: [
-                          ...baseMessages,
-                          { role: "assistant", content: aiContent },
-                        ],
-                      }
+                      ...c,
+                      messages: [
+                        ...baseMessages,
+                        { role: "assistant", content: aiContent },
+                      ],
+                    }
                     : c
                 )
               );
@@ -156,12 +152,12 @@ function App() {
         prev.map((c) =>
           c.id === currentId
             ? {
-                ...c,
-                messages: [
-                  ...baseMessages,
-                  { role: "assistant", content: "Error: " + error.message },
-                ],
-              }
+              ...c,
+              messages: [
+                ...baseMessages,
+                { role: "assistant", content: "Error: " + error.message },
+              ],
+            }
             : c
         )
       );
